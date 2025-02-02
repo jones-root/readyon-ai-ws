@@ -1,5 +1,3 @@
-export type SessionStatus = "DISCONNECTED" | "CONNECTING" | "CONNECTED";
-
 export interface ToolParameterProperty {
   type: string;
   description?: string;
@@ -32,7 +30,7 @@ export interface AgentConfig {
   tools: Tool[];
   toolLogic?: Record<
     string,
-    (args: any, transcriptLogsFiltered: TranscriptItem[]) => Promise<any> | any
+    (args: any, transcriptLogsFiltered: any[]) => Promise<any> | any
   >;
   downstreamAgents?:
     | AgentConfig[]
@@ -40,29 +38,6 @@ export interface AgentConfig {
 }
 
 export type AllAgentConfigsType = Record<string, AgentConfig[]>;
-
-export interface TranscriptItem {
-  itemId: string;
-  type: "MESSAGE" | "BREADCRUMB";
-  role?: "user" | "assistant";
-  title?: string;
-  data?: Record<string, any>;
-  expanded: boolean;
-  timestamp: string;
-  createdAtMs: number;
-  status: "IN_PROGRESS" | "DONE";
-  isHidden?: boolean;
-}
-
-export interface Log {
-  id: number;
-  timestamp: string;
-  direction: string;
-  eventName: string;
-  data: any;
-  expanded: boolean;
-  type: string;
-}
 
 export interface ServerEvent {
   type: string;
@@ -98,13 +73,4 @@ export interface ServerEvent {
       error?: any;
     };
   };
-}
-
-export interface LoggedEvent {
-  id: number;
-  direction: "client" | "server";
-  expanded: boolean;
-  timestamp: string;
-  eventName: string;
-  eventData: Record<string, any>; // can have arbitrary objects logged
 }
